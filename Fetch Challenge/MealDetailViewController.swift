@@ -9,6 +9,8 @@ import UIKit
 
 class MealDetailViewController: UIViewController {
 
+    var mealID:String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

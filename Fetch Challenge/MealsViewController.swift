@@ -74,17 +74,16 @@ class MealsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         task.resume()
         
     }
-    /*
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if segue.identifier == "MealVCToMealDetailVC", let mealID = sender as? String {
             let vc = segue.destination as! MealDetailViewController
-            //vc.forumPost = forumPost
-            //vc.forumPostID = forumPostID
+            vc.mealID = mealID
         }
     }
-     */
+    
 
 
 }

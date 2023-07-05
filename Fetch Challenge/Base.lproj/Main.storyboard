@@ -39,7 +39,6 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="mealName" destination="IzX-um-fjo" id="CxI-iS-r85"/>
-                                            <segue destination="sei-Y1-lV2" kind="show" identifier="MealVCToMealDetailVC" id="yto-l2-Sot"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -51,6 +50,7 @@
                     <navigationItem key="navigationItem" id="SUy-kn-dtW"/>
                     <connections>
                         <outlet property="mealsTV" destination="cO9-X7-rQe" id="q10-aA-vyN"/>
+                        <segue destination="sei-Y1-lV2" kind="show" identifier="MealVCToMealDetailVC" id="l1M-hl-LMj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
