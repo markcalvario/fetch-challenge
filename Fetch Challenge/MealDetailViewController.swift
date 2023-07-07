@@ -12,6 +12,8 @@ class MealDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         let meals: [[String: String?]]
     }
 
+    @IBOutlet var mealNameLabel: UILabel!
+    @IBOutlet var instructionsLabel: UILabel!
     @IBOutlet var ingredientsTV: UITableView!
     var mealID:String = ""
     var meal:[String:String?] = [:]
@@ -30,6 +32,14 @@ class MealDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func showMealDetails() {
         self.ingredientsTV.reloadData()
+        let instructions = self.meal["strInstructions"] as? String
+        let mealName = self.meal["strMeal"] as? String
+        if instructions != nil {
+            self.instructionsLabel.text = instructions
+        }
+        if mealName != nil {
+            self.mealNameLabel.text = mealName
+        }
     }
 
     func getMealDetailWithMealID(_ id:String){
