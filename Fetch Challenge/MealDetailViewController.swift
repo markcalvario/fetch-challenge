@@ -7,23 +7,31 @@
 
 import UIKit
 
-class MealDetailViewController: UIViewController {
+class MealDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     struct MealDetailsData: Codable {
         let meals: [[String: String?]]
     }
 
+    @IBOutlet var ingredientsTV: UITableView!
     var mealID:String = ""
     var meal:[String:String?] = [:]
+    var ingredients:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.ingredientsTV.dataSource = self
+        self.ingredientsTV.delegate = self
+        
         self.getMealDetailWithMealID(self.mealID)
     }
-    func showMealDetails() {}
-
     
+    
+    func showMealDetails() {
+        self.ingredientsTV.reloadData()
+    }
+
     func getMealDetailWithMealID(_ id:String){
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 30
@@ -47,6 +55,23 @@ class MealDetailViewController: UIViewController {
             do {
                 let mealsDetailsData = try JSONDecoder().decode(MealDetailsData.self, from: jsonData)
                 self.meal = mealsDetailsData.meals[0]
+                
+                for i in 1...20 {
+                    let ingredientKey = "strIngredient" + String(i)
+                    let measurementKey = "strMeasure" + String(i)
+                    
+                    let ingredient = self.meal[ingredientKey] as? String
+                    let measurement = self.meal[measurementKey] as? String
+                    
+                    if (ingredient != nil && measurement != nil) {
+                        let measuredIngredient = measurement! + " " + ingredient!
+                        if (!measuredIngredient.trimmingCharacters(in: .whitespaces).isEmpty) {
+                            self.ingredients.append(measuredIngredient)
+                        }
+                    }
+                    
+                }
+                
                 DispatchQueue.main.async {
                     self.showMealDetails()
                 }
@@ -60,4 +85,13 @@ class MealDetailViewController: UIViewController {
         
     }
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.ingredients.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath) as! IngredientCell
+        cell.ingredientLabel.text = self.ingredients[indexPath.row]
+        return cell
+    }
 }

@@ -64,10 +64,67 @@
                     <view key="view" contentMode="scaleToFill" id="wUI-lh-VOj">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I7f-4f-xxM">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nSX-Ui-WvS">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="699"/>
+                                        <subviews>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Ws9-mx-P5e">
+                                                <rect key="frame" x="0.0" y="63" width="393" height="447"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <prototypes>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ingredientCell" id="UWF-yF-2FB" customClass="IngredientCell" customModule="Fetch_Challenge" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UWF-yF-2FB" id="8Rs-YH-hSy">
+                                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mm8-6I-R5l">
+                                                                    <rect key="frame" x="20" y="11" width="353" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </tableViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="ingredientLabel" destination="mm8-6I-R5l" id="v9T-Cg-VRh"/>
+                                                        </connections>
+                                                    </tableViewCell>
+                                                </prototypes>
+                                            </tableView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="nSX-Ui-WvS" secondAttribute="bottom" id="CgC-Lu-f0s"/>
+                                    <constraint firstItem="nSX-Ui-WvS" firstAttribute="height" secondItem="I7f-4f-xxM" secondAttribute="height" multiplier="0.977622" priority="250" id="Qjg-Jv-W8O"/>
+                                    <constraint firstAttribute="trailing" secondItem="nSX-Ui-WvS" secondAttribute="trailing" id="Yff-Ii-N3w"/>
+                                    <constraint firstItem="nSX-Ui-WvS" firstAttribute="width" secondItem="I7f-4f-xxM" secondAttribute="width" id="gnO-BI-ibz"/>
+                                    <constraint firstItem="nSX-Ui-WvS" firstAttribute="leading" secondItem="I7f-4f-xxM" secondAttribute="leading" id="q3F-gq-1Eg"/>
+                                    <constraint firstItem="nSX-Ui-WvS" firstAttribute="top" secondItem="I7f-4f-xxM" secondAttribute="top" id="yZO-Yg-Q2F"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="u1B-Pb-UJe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="I7f-4f-xxM" firstAttribute="bottom" secondItem="u1B-Pb-UJe" secondAttribute="bottom" id="04h-3T-8TB"/>
+                            <constraint firstItem="I7f-4f-xxM" firstAttribute="top" secondItem="u1B-Pb-UJe" secondAttribute="top" id="5zw-bn-cvO"/>
+                            <constraint firstItem="I7f-4f-xxM" firstAttribute="leading" secondItem="u1B-Pb-UJe" secondAttribute="leading" id="SpZ-pi-cSy"/>
+                            <constraint firstItem="I7f-4f-xxM" firstAttribute="trailing" secondItem="u1B-Pb-UJe" secondAttribute="trailing" id="pbV-dN-eEU"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nAb-tQ-Iuq"/>
+                    <connections>
+                        <outlet property="ingredientsTV" destination="Ws9-mx-P5e" id="tdb-w1-8FJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9jY-4V-N9x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -20,6 +20,7 @@
 		020445D92A5613A700AB72E8 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020445D82A5613A700AB72E8 /* Meal.swift */; };
 		020445DB2A5617E500AB72E8 /* Meals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020445DA2A5617E500AB72E8 /* Meals.swift */; };
 		020445DD2A562C3100AB72E8 /* MealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020445DC2A562C3100AB72E8 /* MealDetailViewController.swift */; };
+		020445E12A57F16900AB72E8 /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020445E02A57F16900AB72E8 /* IngredientCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		020445D82A5613A700AB72E8 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		020445DA2A5617E500AB72E8 /* Meals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meals.swift; sourceTree = "<group>"; };
 		020445DC2A562C3100AB72E8 /* MealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailViewController.swift; sourceTree = "<group>"; };
+		020445E02A57F16900AB72E8 /* IngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				020445D62A560AC800AB72E8 /* MealCell.swift */,
+				020445E02A57F16900AB72E8 /* IngredientCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				020445E12A57F16900AB72E8 /* IngredientCell.swift in Sources */,
 				020445D72A560AC800AB72E8 /* MealCell.swift in Sources */,
 				020445DD2A562C3100AB72E8 /* MealDetailViewController.swift in Sources */,
 				020445D52A56049E00AB72E8 /* MealsViewController.swift in Sources */,
