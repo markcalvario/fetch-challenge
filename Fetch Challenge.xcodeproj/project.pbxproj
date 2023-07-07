@@ -107,6 +107,8 @@
 		020445A02A56019400AB72E8 /* Fetch Challenge */ = {
 			isa = PBXGroup;
 			children = (
+				020445DF2A57E9B300AB72E8 /* Views */,
+				020445DE2A57E99400AB72E8 /* Models */,
 				020445A12A56019400AB72E8 /* AppDelegate.swift */,
 				020445A32A56019400AB72E8 /* SceneDelegate.swift */,
 				020445A72A56019400AB72E8 /* Main.storyboard */,
@@ -114,9 +116,6 @@
 				020445AF2A56019800AB72E8 /* LaunchScreen.storyboard */,
 				020445B22A56019800AB72E8 /* Info.plist */,
 				020445D42A56049E00AB72E8 /* MealsViewController.swift */,
-				020445D62A560AC800AB72E8 /* MealCell.swift */,
-				020445D82A5613A700AB72E8 /* Meal.swift */,
-				020445DA2A5617E500AB72E8 /* Meals.swift */,
 				020445DC2A562C3100AB72E8 /* MealDetailViewController.swift */,
 			);
 			path = "Fetch Challenge";
@@ -137,6 +136,23 @@
 				020445C72A56019800AB72E8 /* Fetch_ChallengeUITestsLaunchTests.swift */,
 			);
 			path = "Fetch ChallengeUITests";
+			sourceTree = "<group>";
+		};
+		020445DE2A57E99400AB72E8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				020445D82A5613A700AB72E8 /* Meal.swift */,
+				020445DA2A5617E500AB72E8 /* Meals.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		020445DF2A57E9B300AB72E8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				020445D62A560AC800AB72E8 /* MealCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
