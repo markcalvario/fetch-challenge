@@ -7,36 +7,50 @@
 
 import UIKit
 
-class MealsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MealsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    @IBOutlet var mealsTV: UITableView!
-    
+    @IBOutlet var mealCV: UICollectionView!
+    @IBOutlet var flowLayout: UICollectionViewFlowLayout!
     var meals:[Meal] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mealCV.delegate = self
+        self.mealCV.dataSource = self
         self.getAllMeals()
-        self.mealsTV.delegate = self
-        self.mealsTV.dataSource = self
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.meals.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "mealCell", for: indexPath) as! MealCell
-        cell.mealName.text = self.meals[indexPath.row].strMeal
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mealCell", for: indexPath) as! MealCell
+        let meal = self.meals[indexPath.row]
+        let mealPicURL = meal.strMealThumb
+        self.getImage(mealPicURL, mealCVCell: cell)
+        cell.mealImgView.bringSubviewToFront(cell.mealNameLabel)
+        cell.mealNameLabel.text = meal.strMeal
+        cell.mealImgView.frame = CGRect(x: 0, y: 0, width: cell.frame.width, height: cell.frame.height)
+        cell.bgColorView.backgroundColor = UIColor(white: 0, alpha: 0.35)
+        cell.bgColorView.frame = CGRect(x: 0, y: 0, width: cell.frame.width, height: cell.frame.height)
+        cell.mealImgView.addSubview(cell.bgColorView)
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let meal = self.meals[indexPath.row]
-        let mealID = meal.idMeal
-        print("\(mealID), \(meal)")
-        self.performSegue(withIdentifier: "MealVCToMealDetailVC", sender: mealID)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        flowLayout.minimumInteritemSpacing = 5
+        flowLayout.minimumLineSpacing = 5
+        flowLayout.sectionInset.left = 10
+        flowLayout.sectionInset.right = 10
+        
+        let totalwidth = collectionView.bounds.size.width;
+        let numberOfCellsPerRow = 2
+        
+        let dimensions = CGFloat(Int(totalwidth - flowLayout.minimumInteritemSpacing - flowLayout.sectionInset.left - flowLayout.sectionInset.right) / numberOfCellsPerRow)
+        return CGSizeMake(dimensions, dimensions)
     }
-    
+
     func getAllMeals(){
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 30
@@ -52,7 +66,6 @@ class MealsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(alert, animated: true)
                 }
-                
                 return
             }
             guard let jsonData = data else {
@@ -63,10 +76,9 @@ class MealsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 let mealsData = try JSONDecoder().decode(Meals.self, from: jsonData)
                 self.meals = mealsData.meals
                 DispatchQueue.main.async {
-                    self.mealsTV.reloadData()
+                    self.mealCV.reloadData()
                 }
                 print("Done!")
-                
             } catch {
                 print("JSON Decode error: \(error)")
             }
@@ -75,15 +87,35 @@ class MealsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
     }
     
+    func getImage(_ mealPicURL:String, mealCVCell:MealCell){
+        let theURL = URL(string: mealPicURL)
+        if let url = theURL {
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                guard error == nil else {
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Network Error - ", message: "No network connection.", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alert, animated: true)
+                    }
+                    return
+                }
+                
+                guard let imageData = data else { return }
+                DispatchQueue.main.async {
+                    mealCVCell.mealImgView.isOpaque = false
+                    //mealCVCell.mealImgView.backgroundColor = UIColor.black.withAlphaComponent()
+                    mealCVCell.mealImgView.alpha = CGFloat(0.93)
+                    mealCVCell.mealImgView.image = UIImage(data: imageData)
+                }
+                
+            }.resume()
+        }
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
         if segue.identifier == "MealVCToMealDetailVC", let mealID = sender as? String {
             let vc = segue.destination as! MealDetailViewController
             vc.mealID = mealID
         }
     }
-    
-
-
 }

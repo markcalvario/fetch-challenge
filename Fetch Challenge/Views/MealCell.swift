@@ -2,23 +2,25 @@
 //  MealCell.swift
 //  Fetch Challenge
 //
-//  Created by Mark Calvario on 7/5/23.
+//  Created by Mark Calvario on 7/7/23.
 //
 
 import UIKit
 
-class MealCell: UITableViewCell {
-
-    @IBOutlet var mealName: UILabel!
+class MealCell: UICollectionViewCell {
+    
+    @IBOutlet var mealNameLabel: UILabel!
+    @IBOutlet var mealImgView: UIImageView!
+    
+    let bgColorView = UIView()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        /*
+        self.bgColorView.backgroundColor = UIColor(white: 0, alpha: 0.35)
+        self.bgColorView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        self.mealImgView.addSubview(self.bgColorView)
+         */
+        
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }
