@@ -45,6 +45,12 @@ class MealsViewController: UIViewController, UICollectionViewDelegate, UICollect
         let dimensions = CGFloat(Int(totalwidth - flowLayout.minimumInteritemSpacing - flowLayout.sectionInset.left - flowLayout.sectionInset.right) / numberOfCellsPerRow)
         return CGSizeMake(dimensions, dimensions)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let meal = self.meals[indexPath.row]
+        let mealID = meal.idMeal
+        self.performSegue(withIdentifier: "MealVCToMealDetailVC", sender: mealID)
+    }
 
     func getAllMeals(){
         let config = URLSessionConfiguration.default
