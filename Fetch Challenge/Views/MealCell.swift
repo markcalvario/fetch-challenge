@@ -16,11 +16,15 @@ class MealCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        /*
+    }
+    
+    func setCellUIWithMeal(_ meal:Meal) {
+        
+        self.mealNameLabel.text = meal.strMeal
+        self.mealImgView.bringSubviewToFront(self.mealNameLabel)
+        self.mealImgView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
         self.bgColorView.backgroundColor = UIColor(white: 0, alpha: 0.35)
         self.bgColorView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
         self.mealImgView.addSubview(self.bgColorView)
-         */
-        
     }
 }

@@ -29,12 +29,7 @@ class MealsViewController: UIViewController, UICollectionViewDelegate, UICollect
         let meal = self.meals[indexPath.row]
         let mealPicURL = meal.strMealThumb
         self.getImage(mealPicURL, mealCVCell: cell)
-        cell.mealImgView.bringSubviewToFront(cell.mealNameLabel)
-        cell.mealNameLabel.text = meal.strMeal
-        cell.mealImgView.frame = CGRect(x: 0, y: 0, width: cell.frame.width, height: cell.frame.height)
-        cell.bgColorView.backgroundColor = UIColor(white: 0, alpha: 0.35)
-        cell.bgColorView.frame = CGRect(x: 0, y: 0, width: cell.frame.width, height: cell.frame.height)
-        cell.mealImgView.addSubview(cell.bgColorView)
+        cell.setCellUIWithMeal(meal)
         return cell
     }
     
@@ -102,9 +97,6 @@ class MealsViewController: UIViewController, UICollectionViewDelegate, UICollect
                 
                 guard let imageData = data else { return }
                 DispatchQueue.main.async {
-                    mealCVCell.mealImgView.isOpaque = false
-                    //mealCVCell.mealImgView.backgroundColor = UIColor.black.withAlphaComponent()
-                    mealCVCell.mealImgView.alpha = CGFloat(0.93)
                     mealCVCell.mealImgView.image = UIImage(data: imageData)
                 }
                 
