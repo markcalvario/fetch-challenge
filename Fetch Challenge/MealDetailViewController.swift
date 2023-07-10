@@ -25,8 +25,6 @@ class MealDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         self.ingredientsTV.dataSource = self
         self.ingredientsTV.delegate = self
         
@@ -40,10 +38,7 @@ class MealDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         let mealName = self.meal["strMeal"] as? String
         let mealImgURL = self.meal["strMealThumb"] as? String
         if instructions != nil {
-            //let sentences = instructions!.split(separator: "\r\n")
-            
             self.instructionsLabel.text = instructions!.replacingOccurrences(of: "\r\n\r\n", with: "\r\n").replacingOccurrences(of: "\r\n", with: "\n\n")
-            
         }
         if mealName != nil {
             self.mealNameLabel.text = mealName

@@ -57,6 +57,14 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TRm-xl-6df">
+                                <rect key="frame" x="0.0" y="103" width="393" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="0Ok-on-o9w"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -65,6 +73,7 @@
                     <connections>
                         <outlet property="flowLayout" destination="aco-Tq-nly" id="zaB-ez-cvN"/>
                         <outlet property="mealCV" destination="iRQ-jd-7tt" id="2HL-sI-93s"/>
+                        <outlet property="searchBar" destination="TRm-xl-6df" id="YKP-eE-lbE"/>
                         <segue destination="sei-Y1-lV2" kind="show" identifier="MealVCToMealDetailVC" id="l1M-hl-LMj"/>
                     </connections>
                 </viewController>

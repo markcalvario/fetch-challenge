@@ -7,26 +7,30 @@
 
 import UIKit
 
-class MealsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class MealsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
+    @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var mealCV: UICollectionView!
     @IBOutlet var flowLayout: UICollectionViewFlowLayout!
+    
     var meals:[Meal] = []
+    var filteredMeals:[Meal] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mealCV.delegate = self
         self.mealCV.dataSource = self
+        self.searchBar.delegate = self
         self.getAllMeals()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.meals.count
+        return self.filteredMeals.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mealCell", for: indexPath) as! MealCell
-        let meal = self.meals[indexPath.row]
+        let meal = self.filteredMeals[indexPath.row]
         let mealPicURL = meal.strMealThumb
         self.getImage(mealPicURL, mealCVCell: cell)
         cell.setCellUIWithMeal(meal)
@@ -47,7 +51,7 @@ class MealsViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let meal = self.meals[indexPath.row]
+        let meal = self.filteredMeals[indexPath.row]
         let mealID = meal.idMeal
         self.performSegue(withIdentifier: "MealVCToMealDetailVC", sender: mealID)
     }
@@ -76,6 +80,7 @@ class MealsViewController: UIViewController, UICollectionViewDelegate, UICollect
             do {
                 let mealsData = try JSONDecoder().decode(Meals.self, from: jsonData)
                 self.meals = mealsData.meals
+                self.filteredMeals = self.meals
                 DispatchQueue.main.async {
                     self.mealCV.reloadData()
                 }
@@ -109,6 +114,47 @@ class MealsViewController: UIViewController, UICollectionViewDelegate, UICollect
             }.resume()
         }
     }
+    
+    // MARK: UISearchBarDelegate Methods
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let text = searchText.lowercased()
+        if (text.count == 0) {
+            self.toggleSearchBar()
+        } else {
+            var matchingMeals = [Meal]()
+            for meal in self.meals {
+                let mealName = meal.strMeal.lowercased()
+                if mealName.contains(text) {
+                    matchingMeals.append(meal)
+                }
+            }
+            self.filteredMeals = matchingMeals
+            self.mealCV.reloadData()
+        
+        }
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        self.searchBar.showsCancelButton = true
+        return true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.toggleSearchBar()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.toggleSearchBar()
+    }
+    
+    func toggleSearchBar() {
+        self.filteredMeals = self.meals
+        self.mealCV.reloadData()
+        self.searchBar.showsCancelButton = false
+        self.searchBar.text = ""
+        self.view.endEditing(true)
+    }
+
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MealVCToMealDetailVC", let mealID = sender as? String {
