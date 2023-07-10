@@ -40,7 +40,10 @@ class MealDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         let mealName = self.meal["strMeal"] as? String
         let mealImgURL = self.meal["strMealThumb"] as? String
         if instructions != nil {
-            self.instructionsLabel.text = instructions
+            //let sentences = instructions!.split(separator: "\r\n")
+            
+            self.instructionsLabel.text = instructions!.replacingOccurrences(of: "\r\n\r\n", with: "\r\n").replacingOccurrences(of: "\r\n", with: "\n\n")
+            
         }
         if mealName != nil {
             self.mealNameLabel.text = mealName
