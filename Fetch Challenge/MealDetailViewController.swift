@@ -50,7 +50,7 @@ class MealDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         self.bgColorView.backgroundColor = UIColor(white: 0, alpha: 0.35)
         self.bgColorView.frame = CGRect(x: 0, y: 0, width: self.mealImageView.frame.width, height: self.mealImageView.frame.height)
         self.mealImageView.addSubview(self.bgColorView)
-        self.heightConstant.constant = CGFloat(Double(self.ingredients.count) * 45)
+        self.heightConstant.constant = CGFloat(Double(self.ingredients.count+1) * 45)
         
     }
 
@@ -77,22 +77,7 @@ class MealDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             do {
                 let mealsDetailsData = try JSONDecoder().decode(MealDetailsData.self, from: jsonData)
                 self.meal = mealsDetailsData.meals[0]
-                
-                for i in 1...20 {
-                    let ingredientKey = "strIngredient" + String(i)
-                    let measurementKey = "strMeasure" + String(i)
-                    
-                    let ingredient = self.meal[ingredientKey] as? String
-                    let measurement = self.meal[measurementKey] as? String
-                    
-                    if (ingredient != nil && measurement != nil) {
-                        let measuredIngredient = measurement! + " " + ingredient!
-                        if (!measuredIngredient.trimmingCharacters(in: .whitespaces).isEmpty) {
-                            self.ingredients.append(measuredIngredient)
-                        }
-                    }
-                    
-                }
+                self.getMeasuredIngredients()
                 
                 DispatchQueue.main.async {
                     self.showMealDetails()
@@ -105,6 +90,24 @@ class MealDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         task.resume()
         
+    }
+    
+    func getMeasuredIngredients() {
+        for i in 1...20 {
+            let ingredientKey = "strIngredient" + String(i)
+            let measurementKey = "strMeasure" + String(i)
+            
+            let ingredient = self.meal[ingredientKey] as? String
+            let measurement = self.meal[measurementKey] as? String
+            
+            if (ingredient != nil && measurement != nil) {
+                let measuredIngredient = measurement! + " " + ingredient!
+                if (!measuredIngredient.trimmingCharacters(in: .whitespaces).isEmpty) {
+                    self.ingredients.append(measuredIngredient)
+                }
+            }
+            
+        }
     }
     
     func getImage(_ mealPicURL:String){
@@ -137,5 +140,9 @@ class MealDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath) as! IngredientCell
         cell.ingredientLabel.text = self.ingredients[indexPath.row]
         return cell
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section:Int) -> String?
+    {
+      return "Ingredients"
     }
 }
